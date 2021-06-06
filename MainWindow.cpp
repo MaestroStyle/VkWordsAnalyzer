@@ -36,10 +36,12 @@ void MainWindow::startAnalyze(){
     QString user_id = _id_field->text();
     if(user_id.isEmpty()){
         _id_field->setText("Введите ID пользователя!");
+        _start_button->setEnabled(true);
         return;
     }
     if(!_analyzer->checkId(user_id)){
         _id_field->setText("Профиль не доступен!");
+        _start_button->setEnabled(true);
         return;
     }
     QJsonArray posts = _analyzer->loadPosts(user_id);
@@ -59,7 +61,7 @@ void MainWindow::startAnalyze(){
 
     QString conclusion = QString("Общее кол-во слов в постах: %1<br> \
                                  Кол-во встерчающихся ключевых слов: %2<br> \
-                                 Доля ключевых слов: %3%<br> \
+                                 Доля ключевых слов: <strong>%3%</strong><br> \
                                  <br>Посты с ключевыми словами: <br>%4<br> \
                                  <br>Ключевые слова: <br>%5<br>").arg(num_words).arg(num_keywords).arg(QString::number(keyword_share, 'f', 2)).arg(urls_list).arg(keywords_list);
 
